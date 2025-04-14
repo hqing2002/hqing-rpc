@@ -25,7 +25,7 @@ public class RpcApplication {
             newRpcConfig = new RpcConfig();
         }
         rpcConfig = newRpcConfig;
-        log.info("rpc init, config = {}", newRpcConfig.toString());
+        log.info("rpc init, config = {}", newRpcConfig);
     }
 
     /**

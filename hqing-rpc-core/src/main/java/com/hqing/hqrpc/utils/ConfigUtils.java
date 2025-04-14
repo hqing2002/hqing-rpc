@@ -8,6 +8,7 @@ import cn.hutool.setting.yaml.YamlUtil;
 import lombok.extern.slf4j.Slf4j;
 
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 /**
  * 配置工具类
@@ -57,7 +58,7 @@ public class ConfigUtils {
             }
             //文件存在, 如果类型是properties
             if (".properties".equals(extension)) {
-                Props props = new Props(configPath);
+                Props props = new Props(configPath, StandardCharsets.UTF_8);
                 //将得到的属性转换为实例对象返回, 如果属性为空则返回空参构造器创建的默认实例对象
                 return props.toBean(clazz, prefix);
             } else {

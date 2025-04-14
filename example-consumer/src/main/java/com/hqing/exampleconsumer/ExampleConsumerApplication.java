@@ -19,6 +19,6 @@ public class ExampleConsumerApplication {
             System.out.println("远程调用失败");
             return;
         }
-        System.out.println(user);
+        System.out.println(user.getUserName());
     }
 }
