@@ -20,6 +20,10 @@ public class RpcApplication {
      * @param newRpcConfig 自定义配置
      */
     public static void init(RpcConfig newRpcConfig) {
+        //传入空配置就用默认的
+        if (newRpcConfig == null) {
+            newRpcConfig = new RpcConfig();
+        }
         rpcConfig = newRpcConfig;
         log.info("rpc init, config = {}", newRpcConfig.toString());
     }
@@ -42,9 +46,9 @@ public class RpcApplication {
      * 获取Rpc配置
      */
     public static RpcConfig getRpcConfig() {
-        if(rpcConfig == null) {
+        if (rpcConfig == null) {
             synchronized (RpcApplication.class) {
-                if(rpcConfig == null) {
+                if (rpcConfig == null) {
                     init();
                 }
             }
