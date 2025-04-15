@@ -1,7 +1,7 @@
 package com.hqing.hqrpc.serializer;
 
-import com.caucho.hessian.io.HessianInput;
-import com.caucho.hessian.io.HessianOutput;
+import com.caucho.hessian.io.Hessian2Input;
+import com.caucho.hessian.io.Hessian2Output;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -16,15 +16,16 @@ public class HessianSerializer implements Serializer {
     @Override
     public <T> byte[] serialize(T object) throws IOException {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        HessianOutput ho = new HessianOutput(bos);
-        ho.writeObject(object);
+        Hessian2Output hessian2Output = new Hessian2Output(bos);
+        hessian2Output.writeObject(object);
+        hessian2Output.flush();
         return bos.toByteArray();
     }
 
     @Override
     public <T> T deserialize(byte[] bytes, Class<T> tClass) throws IOException {
         ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
-        HessianInput hi = new HessianInput(bis);
-        return tClass.cast(hi.readObject(tClass));
+        Hessian2Input hessian2Input = new Hessian2Input(bis);
+        return tClass.cast(hessian2Input.readObject(tClass));
     }
 }
