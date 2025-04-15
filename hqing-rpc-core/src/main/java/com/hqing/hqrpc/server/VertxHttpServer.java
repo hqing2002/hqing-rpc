@@ -1,12 +1,14 @@
 package com.hqing.hqrpc.server;
 
 import io.vertx.core.Vertx;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Vert.x服务器实现
  *
  * @author <a href="https://github.com/hqing2002">Hqing</a>
  */
+@Slf4j
 public class VertxHttpServer implements HttpServer {
     @Override
     public void doStart(int port) {
@@ -22,9 +24,9 @@ public class VertxHttpServer implements HttpServer {
         // 启动HTTP服务器并监听指定端口
         server.listen(port, result -> {
             if (result.succeeded()) {
-                System.out.println("Server is now listening on port: " + port);
+                log.info("服务器启动成功, 监听端口: {}", port);
             } else {
-                System.err.println("Failed to start server: " + result.cause());
+                log.error("服务器启动失败: {}", String.valueOf(result.cause()));
             }
         });
     }

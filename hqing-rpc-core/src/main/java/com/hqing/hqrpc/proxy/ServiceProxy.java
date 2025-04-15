@@ -9,7 +9,6 @@ import com.hqing.hqrpc.serializer.Serializer;
 import com.hqing.hqrpc.serializer.SerializerFactory;
 import lombok.extern.slf4j.Slf4j;
 
-import java.io.IOException;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 
@@ -46,8 +45,8 @@ public class ServiceProxy implements InvocationHandler {
                 RpcResponse rpcResponse = SERIALIZER.deserialize(resultBytes, RpcResponse.class);
                 return rpcResponse.getData();
             }
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
+        } catch (Exception e) {
+            log.error("RPC 调用失败", e);
         }
         return null;
     }

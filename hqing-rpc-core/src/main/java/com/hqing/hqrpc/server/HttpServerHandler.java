@@ -33,11 +33,8 @@ public class HttpServerHandler implements Handler<HttpServerRequest> {
     @Override
     public void handle(HttpServerRequest request) {
         //记录日志
-        System.out.printf("[%s] Received %s request: %s%n",
-                Thread.currentThread().getName(),
-                request.method(),
-                request.uri());
-
+        log.info("{}收到网络请求, 请求方式: {}, 请求路径: {}",
+                Thread.currentThread().getName(), request.method(), request.uri());
         //异步处理HTTP请求
         request.bodyHandler(body -> {
             //反序列化HTTP请求体为Rpc请求对象
@@ -46,7 +43,7 @@ public class HttpServerHandler implements Handler<HttpServerRequest> {
             try {
                 rpcRequest = SERIALIZER.deserialize(bytes, RpcRequest.class);
             } catch (Exception e) {
-                System.out.println("序列化异常: " + e.getMessage());
+                log.error("反序列化请求参数异常: ", e);
             }
             //处理RPC请求
             RpcResponse rpcResponse = processRpcRequest(rpcRequest);

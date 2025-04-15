@@ -1,6 +1,7 @@
 package com.hqing.hqrpc.proxy;
 
 import com.hqing.hqrpc.RpcApplication;
+import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.Proxy;
 
@@ -9,6 +10,7 @@ import java.lang.reflect.Proxy;
  *
  * @author <a href="https://github.com/hqing2002">Hqing</a>
  */
+@Slf4j
 public class ServiceProxyFactory {
 
     /**
@@ -16,6 +18,7 @@ public class ServiceProxyFactory {
      */
     public static <T> T getProxy(Class<T> serviceClass) {
         if (RpcApplication.getRpcConfig().isMock()) {
+            log.info("开启MOCK调用模式");
             return getMockProxy(serviceClass);
         }
 

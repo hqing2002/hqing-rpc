@@ -102,7 +102,7 @@ public class SpiLoader {
      * @param loadClass 类型
      */
     public static Map<String, Class<?>> load(Class<?> loadClass) {
-        log.info("加载类型为:{} 的SPI", loadClass.getName());
+        log.info("加载SPI, 类型为:{}", loadClass.getName());
         Map<String, Class<?>> keyClassMap = new HashMap<>();
 
         //扫描路径文件,先扫描系统目录再扫描用户目录,用户定义同名key可以覆盖系统的

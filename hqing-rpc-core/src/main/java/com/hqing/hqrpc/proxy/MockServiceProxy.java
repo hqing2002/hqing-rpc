@@ -16,7 +16,7 @@ public class MockServiceProxy implements InvocationHandler {
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) {
         Class<?> returnType = method.getReturnType();
-        log.info("mock invoke {}", method.getName());
+        log.info("mock调用方法: {}", method.getName());
         return BeanUtil.toBean(new Object(), returnType);
     }
 }
