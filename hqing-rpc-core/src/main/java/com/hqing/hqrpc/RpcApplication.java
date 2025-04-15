@@ -2,6 +2,9 @@ package com.hqing.hqrpc;
 
 import com.hqing.hqrpc.config.RpcConfig;
 import com.hqing.hqrpc.constant.RpcConstant;
+import com.hqing.hqrpc.model.RegistryConfig;
+import com.hqing.hqrpc.registry.Registry;
+import com.hqing.hqrpc.registry.RegistryFactory;
 import com.hqing.hqrpc.utils.ConfigUtils;
 import lombok.extern.slf4j.Slf4j;
 
@@ -25,7 +28,13 @@ public class RpcApplication {
             newRpcConfig = new RpcConfig();
         }
         rpcConfig = newRpcConfig;
-        log.info("rpc init, config = {}", newRpcConfig);
+        log.info("RPC初始化配置: {}", newRpcConfig);
+
+        //注册中心初始化
+        RegistryConfig registryConfig = rpcConfig.getRegistryConfig();
+        Registry registry = RegistryFactory.getInstance(registryConfig.getRegistry());
+        registry.init(registryConfig);
+        log.info("注册中心初始化配置: {}", registryConfig);
     }
 
     /**

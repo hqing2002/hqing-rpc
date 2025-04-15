@@ -1,5 +1,6 @@
 package com.hqing.hqrpc.config;
 
+import com.hqing.hqrpc.model.RegistryConfig;
 import com.hqing.hqrpc.serializer.SerializerKeys;
 import lombok.Data;
 
@@ -39,4 +40,9 @@ public class RpcConfig {
      * 序列化器
      */
     private String serializer = SerializerKeys.JDK;
+
+    /**
+     * 注册中心配置
+     */
+    private RegistryConfig registryConfig = new RegistryConfig();
 }
