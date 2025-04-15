@@ -1,14 +1,16 @@
 package com.hqing.hqrpc.server;
 
+import com.hqing.hqrpc.RpcApplication;
 import com.hqing.hqrpc.model.RpcRequest;
 import com.hqing.hqrpc.model.RpcResponse;
 import com.hqing.hqrpc.registry.LocalRegistry;
-import com.hqing.hqrpc.serializer.JdkSerializer;
 import com.hqing.hqrpc.serializer.Serializer;
+import com.hqing.hqrpc.serializer.SerializerFactory;
 import io.vertx.core.Handler;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.core.http.HttpServerRequest;
 import io.vertx.core.http.HttpServerResponse;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
@@ -18,9 +20,10 @@ import java.lang.reflect.Method;
  *
  * @author <a href="https://github.com/hqing2002">Hqing</a>
  */
+@Slf4j
 public class HttpServerHandler implements Handler<HttpServerRequest> {
-    //使用单例序列化器
-    private static final Serializer SERIALIZER = new JdkSerializer();
+    //从配置文件中读取序列化器名称,使用工厂获取序列化器
+    private static final Serializer SERIALIZER = SerializerFactory.getInstance(RpcApplication.getRpcConfig().getSerializer());
 
     /**
      * 处理Http请求
@@ -61,7 +64,7 @@ public class HttpServerHandler implements Handler<HttpServerRequest> {
 
         //请求参数为null, 直接返回
         if (rpcRequest == null) {
-            rpcResponse.setMessage("rpc Request is null");
+            rpcResponse.setMessage("RPC Request Is Null");
             return rpcResponse;
         }
         //读取rpc请求参数
