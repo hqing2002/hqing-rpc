@@ -1,2 +1,2 @@
 rpc:
-  serializer: JSON
+  serializer: ConsumerSerializer
