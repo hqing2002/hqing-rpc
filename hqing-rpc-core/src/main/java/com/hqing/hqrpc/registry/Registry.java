@@ -32,7 +32,12 @@ public interface Registry {
     List<ServiceMetaInfo> serviceDiscovery(String serviceKey);
 
     /**
-     * 服务销毁
+     * 注册中心销毁
      */
     void destroy();
+
+    /**
+     * 心跳检测(服务端)
+     */
+    void heartBeat();
 }

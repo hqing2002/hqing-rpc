@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import java.util.List;
 
+
 /**
  * 测试注册中心
  *
@@ -69,5 +70,19 @@ public class RegistryTest {
         for (ServiceMetaInfo metaInfo : serviceMetaInfoList) {
             System.out.println(JSONUtil.toJsonStr(metaInfo));
         }
+    }
+
+    /**
+     * 测试心跳检测
+     */
+    @Test
+    public void heartBeat() throws Exception {
+        register();
+        //阻塞1分钟, 一分钟后程序退出代表节点失效
+        Thread.sleep(60 * 1000L);
+    }
+
+    public static void main(String[] args) {
+        System.out.println(String.format("*/%s * * * * *", 10));
     }
 }
