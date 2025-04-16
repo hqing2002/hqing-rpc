@@ -35,6 +35,9 @@ public class RpcApplication {
         Registry registry = RegistryFactory.getInstance(registryConfig.getRegistry());
         registry.init(registryConfig);
         log.info("注册中心初始化配置: {}", registryConfig);
+
+        //创建并注册 Shutdown Hook JVM主动退出时执行的操作
+        Runtime.getRuntime().addShutdownHook(new Thread(registry::destroy));
     }
 
     /**

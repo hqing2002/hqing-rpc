@@ -145,6 +145,17 @@ public class EtcdRegistry implements Registry {
     @Override
     public void destroy() {
         log.info("当前节点下线");
+
+        //注销该服务注册的所有key
+        for (String key : localRegisterNodeKeySet) {
+            try {
+                kvClient.delete(ByteSequence.from(key, StandardCharsets.UTF_8)).get();
+            } catch (Exception e) {
+                log.error("{} 节点下线失败", key, e);
+                throw new RuntimeException(e);
+            }
+        }
+
         if (kvClient != null) {
             kvClient.close();
         }
@@ -159,29 +170,25 @@ public class EtcdRegistry implements Registry {
     @Override
     public void heartBeat() {
         //间隔10s心跳续签一次
-        CronUtil.schedule("*/10 * * * * *", new Task() {
-            @Override
-            public void execute() {
-                log.info(localRegisterNodeKeySet.toString());
-                //遍历所以注册的key
-                for (String key : localRegisterNodeKeySet) {
-                    try {
-                        //获取key的值
-                        List<KeyValue> keyValues = kvClient.get(ByteSequence.from(key, StandardCharsets.UTF_8)).get().getKvs();
+        CronUtil.schedule(String.format("*/%s * * * * *", RENEWAL_TIME), (Task) () -> {
+            //遍历所以注册的key
+            for (String key : localRegisterNodeKeySet) {
+                try {
+                    //获取key的值
+                    List<KeyValue> keyValues = kvClient.get(ByteSequence.from(key, StandardCharsets.UTF_8)).get().getKvs();
 
-                        //节点过期(说明服务宕机需要重启节点)
-                        if (CollUtil.isEmpty(keyValues)) {
-                            continue;
-                        }
-                        //服务未过期重新注册续签
-                        KeyValue keyValue = keyValues.get(0);
-                        String value = keyValue.getValue().toString(StandardCharsets.UTF_8);
-                        ServiceMetaInfo serviceMetaInfo = JSONUtil.toBean(value, ServiceMetaInfo.class);
-                        register(serviceMetaInfo);
-                    } catch (Exception e) {
-                        log.error("服务续签失败", e);
-                        throw new RuntimeException(key + "续签失败", e);
+                    //节点过期(说明服务宕机需要重启节点)
+                    if (CollUtil.isEmpty(keyValues)) {
+                        continue;
                     }
+                    //服务未过期重新注册续签
+                    KeyValue keyValue = keyValues.get(0);
+                    String value = keyValue.getValue().toString(StandardCharsets.UTF_8);
+                    ServiceMetaInfo serviceMetaInfo = JSONUtil.toBean(value, ServiceMetaInfo.class);
+                    register(serviceMetaInfo);
+                } catch (Exception e) {
+                    log.error("服务续签失败", e);
+                    throw new RuntimeException(key + "续签失败", e);
                 }
             }
         });
