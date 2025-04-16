@@ -1,5 +1,7 @@
 package com.hqing.hqrpc.constant;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * RPC相关常量
  *
@@ -15,4 +17,9 @@ public interface RpcConstant {
      * 默认服务版本
      */
     String DEFAULT_SERVICE_VERSION = "1.0";
+
+    /**
+     * 默认超时单位
+     */
+    TimeUnit DEFAULT_TIME_UNIT = TimeUnit.MILLISECONDS;
 }

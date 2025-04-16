@@ -1,4 +1,4 @@
-package com.hqing.hqrpc.model;
+package com.hqing.hqrpc.config;
 
 import com.hqing.hqrpc.registry.RegistryKeys;
 import lombok.Data;

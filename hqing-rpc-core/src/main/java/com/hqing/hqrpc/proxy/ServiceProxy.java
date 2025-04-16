@@ -66,7 +66,7 @@ public class ServiceProxy implements InvocationHandler {
         //获取RPC配置
         RpcConfig rpcConfig = RpcApplication.getRpcConfig();
 
-        //从工厂中获取RPC实例
+        //从工厂中获取注册中心实例
         Registry registry = RegistryFactory.getInstance(rpcConfig.getRegistryConfig().getRegistry());
 
         //构造当前请求服务的元信息

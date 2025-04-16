@@ -1,10 +1,10 @@
 package com.hqing.hqrpc.registry;
 
 import cn.hutool.json.JSONUtil;
-import com.hqing.hqrpc.model.RegistryConfig;
+import com.hqing.hqrpc.config.RegistryConfig;
+import com.hqing.hqrpc.constant.RpcConstant;
 import com.hqing.hqrpc.model.ServiceMetaInfo;
 import io.etcd.jetcd.*;
-import io.etcd.jetcd.cluster.MemberListResponse;
 import io.etcd.jetcd.kv.GetResponse;
 import io.etcd.jetcd.options.GetOption;
 import io.etcd.jetcd.options.PutOption;
@@ -14,8 +14,6 @@ import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 /**
@@ -29,15 +27,20 @@ public class EtcdRegistry implements Registry {
      * 根节点
      */
     private static final String ETCD_ROOT_PATH = "/rpc/";
+
     /**
      * ETCD客户端
      */
     private Client etcdClient;
+
     /**
      * ETCD键值对操作客户端
      */
     private KV kvClient;
 
+    /**
+     * 超时时长
+     */
     private Long timeout;
 
     /**
@@ -51,12 +54,11 @@ public class EtcdRegistry implements Registry {
             //连接ETCD注册中心
             etcdClient = Client.builder().endpoints(address).connectTimeout(Duration.ofMillis(timeout)).build();
             //测试连接情况,显式触发连接
-            MemberListResponse response = etcdClient.getClusterClient().listMember().get(timeout, TimeUnit.MILLISECONDS);
-            log.info("Members: {}", response.getMembers());
+            etcdClient.getClusterClient().listMember().get(timeout, RpcConstant.DEFAULT_TIME_UNIT);
             //获取KV客户端
             kvClient = etcdClient.getKVClient();
         } catch (Exception e) {
-            log.error("ETCD注册中心连接失败: {}", e.getCause().getMessage());
+            log.error("ETCD注册中心连接失败", e.getCause());
             destroy();
             throw new RuntimeException("ETCD注册中心连接错误");
         }
@@ -71,7 +73,7 @@ public class EtcdRegistry implements Registry {
         Lease leaseClient = etcdClient.getLeaseClient();
 
         //创建一个30s的租约
-        long leaseId = leaseClient.grant(30).get(timeout, TimeUnit.MILLISECONDS).getID();
+        long leaseId = leaseClient.grant(30).get(timeout, RpcConstant.DEFAULT_TIME_UNIT).getID();
 
         //设置要存储的键值对
         String registryKey = ETCD_ROOT_PATH + serviceMetaInfo.getServiceNodeKey();
@@ -80,7 +82,7 @@ public class EtcdRegistry implements Registry {
 
         //将键值对和租约关联起来, 并设置过期时间
         PutOption putOption = PutOption.builder().withLeaseId(leaseId).build();
-        kvClient.put(key, value, putOption).get(timeout, TimeUnit.MILLISECONDS);
+        kvClient.put(key, value, putOption).get(timeout, RpcConstant.DEFAULT_TIME_UNIT);
     }
 
     /**
@@ -89,7 +91,7 @@ public class EtcdRegistry implements Registry {
     @Override
     public void unRegister(ServiceMetaInfo serviceMetaInfo) throws Exception {
         String key = ETCD_ROOT_PATH + serviceMetaInfo.getServiceNodeKey();
-        kvClient.delete(ByteSequence.from(key, StandardCharsets.UTF_8)).get(timeout, TimeUnit.MILLISECONDS);
+        kvClient.delete(ByteSequence.from(key, StandardCharsets.UTF_8)).get(timeout, RpcConstant.DEFAULT_TIME_UNIT);
     }
 
     /**
@@ -103,7 +105,7 @@ public class EtcdRegistry implements Registry {
             //根据前缀查询
             GetOption getOption = GetOption.builder().isPrefix(true).build();
             CompletableFuture<GetResponse> completableFuture = kvClient.get(ByteSequence.from(searchPrefix, StandardCharsets.UTF_8), getOption);
-            List<KeyValue> keyValues = completableFuture.get(timeout, TimeUnit.MILLISECONDS).getKvs();
+            List<KeyValue> keyValues = completableFuture.get(timeout, RpcConstant.DEFAULT_TIME_UNIT).getKvs();
             //解析服务信息
             return keyValues.stream().map(keyValue -> {
                 String value = keyValue.getValue().toString(StandardCharsets.UTF_8);

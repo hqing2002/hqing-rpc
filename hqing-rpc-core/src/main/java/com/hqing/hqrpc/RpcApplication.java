@@ -1,8 +1,8 @@
 package com.hqing.hqrpc;
 
+import com.hqing.hqrpc.config.RegistryConfig;
 import com.hqing.hqrpc.config.RpcConfig;
 import com.hqing.hqrpc.constant.RpcConstant;
-import com.hqing.hqrpc.model.RegistryConfig;
 import com.hqing.hqrpc.registry.Registry;
 import com.hqing.hqrpc.registry.RegistryFactory;
 import com.hqing.hqrpc.utils.ConfigUtils;

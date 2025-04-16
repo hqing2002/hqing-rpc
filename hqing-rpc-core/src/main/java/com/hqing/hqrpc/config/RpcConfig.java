@@ -1,6 +1,5 @@
 package com.hqing.hqrpc.config;
 
-import com.hqing.hqrpc.model.RegistryConfig;
 import com.hqing.hqrpc.serializer.SerializerKeys;
 import lombok.Data;
 

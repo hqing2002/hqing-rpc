@@ -101,7 +101,7 @@ public class SpiLoader {
      *
      * @param loadClass 类型
      */
-    public static Map<String, Class<?>> load(Class<?> loadClass) {
+    public static void load(Class<?> loadClass) {
         log.info("加载SPI, 类型为:{}", loadClass.getName());
         Map<String, Class<?>> keyClassMap = new HashMap<>();
 
@@ -135,6 +135,5 @@ public class SpiLoader {
         }
         //储存得到的内容
         LOADER_MAP.put(loadClass.getName(), keyClassMap);
-        return keyClassMap;
     }
 }

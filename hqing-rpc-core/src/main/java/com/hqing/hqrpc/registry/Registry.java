@@ -1,6 +1,6 @@
 package com.hqing.hqrpc.registry;
 
-import com.hqing.hqrpc.model.RegistryConfig;
+import com.hqing.hqrpc.config.RegistryConfig;
 import com.hqing.hqrpc.model.ServiceMetaInfo;
 
 import java.util.List;

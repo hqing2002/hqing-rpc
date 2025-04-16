@@ -2,8 +2,8 @@ package com.hqing.exampleprovider;
 
 import com.hqing.examplecommon.service.UserService;
 import com.hqing.hqrpc.RpcApplication;
+import com.hqing.hqrpc.config.RegistryConfig;
 import com.hqing.hqrpc.config.RpcConfig;
-import com.hqing.hqrpc.model.RegistryConfig;
 import com.hqing.hqrpc.model.ServiceMetaInfo;
 import com.hqing.hqrpc.registry.LocalRegistry;
 import com.hqing.hqrpc.registry.Registry;
@@ -20,9 +20,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ExampleProviderApplication {
     public static void main(String[] args) {
-        //初始化Rpc框架
-        RpcApplication.init();
-
         //注册到服务注册器
         String serviceName = UserService.class.getName();
         LocalRegistry.register(serviceName, UserServiceImpl.class);
