@@ -10,15 +10,20 @@ import com.hqing.hqrpc.proxy.ServiceProxyFactory;
  * @author <a href="https://github.com/hqing2002">Hqing</a>
  */
 public class ExampleConsumerApplication {
-    public static void main(String[] args) throws InterruptedException {
-        System.out.println("123");
-        User user = getUser();
-        System.out.println("123");
-        System.out.println(user);
-    }
-
-    public static User getUser () {
+    public static void main(String[] args) {
+        //rpc获取用户服务实现类
         UserService userService = ServiceProxyFactory.getProxy(UserService.class);
-        return userService.getUser("hqing");
+        User user = userService.getUser("hqing");
+        User user1 = userService.getUser("hqing1");
+        User user2 = userService.getUser("hqing2");
+        User user3 = userService.getUser("hqing3");
+        if (user == null || user1 == null || user2 == null || user3 == null) {
+            System.out.println("远程调用失败");
+            return;
+        }
+        System.out.println(user);
+        System.out.println(user1);
+        System.out.println(user2);
+        System.out.println(user3);
     }
 }

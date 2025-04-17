@@ -7,6 +7,4 @@ package com.hqing.hqrpc.registry;
  */
 public interface RegistryKeys {
     String ETCD = "ETCD";
-
-    String ZOOKEEPER = "ZOOKEEPER";
 }

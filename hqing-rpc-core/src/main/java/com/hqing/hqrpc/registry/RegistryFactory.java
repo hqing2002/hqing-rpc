@@ -1,5 +1,6 @@
 package com.hqing.hqrpc.registry;
 
+import com.hqing.hqrpc.registry.impl.EtcdRegistry;
 import com.hqing.hqrpc.spi.SpiLoader;
 import lombok.extern.slf4j.Slf4j;
 

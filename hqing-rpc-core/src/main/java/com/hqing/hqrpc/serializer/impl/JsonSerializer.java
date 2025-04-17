@@ -1,8 +1,9 @@
-package com.hqing.hqrpc.serializer;
+package com.hqing.hqrpc.serializer.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hqing.hqrpc.model.RpcRequest;
 import com.hqing.hqrpc.model.RpcResponse;
+import com.hqing.hqrpc.serializer.Serializer;
 
 import java.io.IOException;
 

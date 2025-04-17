@@ -1,7 +1,8 @@
-package com.hqing.hqrpc.serializer;
+package com.hqing.hqrpc.serializer.impl;
 
 import com.caucho.hessian.io.Hessian2Input;
 import com.caucho.hessian.io.Hessian2Output;
+import com.hqing.hqrpc.serializer.Serializer;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

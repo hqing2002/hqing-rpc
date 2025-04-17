@@ -3,7 +3,7 @@ package com.hqing.hqrpc;
 import cn.hutool.json.JSONUtil;
 import com.hqing.hqrpc.config.RegistryConfig;
 import com.hqing.hqrpc.model.ServiceMetaInfo;
-import com.hqing.hqrpc.registry.EtcdRegistry;
+import com.hqing.hqrpc.registry.impl.EtcdRegistry;
 import com.hqing.hqrpc.registry.Registry;
 import com.hqing.hqrpc.registry.RegistryServiceCache;
 import org.junit.Before;
