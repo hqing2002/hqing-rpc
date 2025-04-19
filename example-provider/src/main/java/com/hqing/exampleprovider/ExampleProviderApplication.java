@@ -10,6 +10,7 @@ import com.hqing.hqrpc.registry.Registry;
 import com.hqing.hqrpc.registry.RegistryFactory;
 import com.hqing.hqrpc.server.VertxServer;
 import com.hqing.hqrpc.server.http.VertxHttpServer;
+import com.hqing.hqrpc.server.tcp.VertxTcpServer;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -39,7 +40,7 @@ public class ExampleProviderApplication {
             throw new RuntimeException(e);
         }
         //启动web服务器, 提供服务
-        VertxServer vertxServer = new VertxHttpServer();
+        VertxServer vertxServer = new VertxTcpServer();
         vertxServer.doStart(RpcApplication.getRpcConfig().getServerPort());
     }
 }
