@@ -1,5 +1,6 @@
-package com.hqing.hqrpc.server;
+package com.hqing.hqrpc.server.http;
 
+import com.hqing.hqrpc.server.VertxServer;
 import io.vertx.core.Vertx;
 import lombok.extern.slf4j.Slf4j;
 
@@ -9,7 +10,7 @@ import lombok.extern.slf4j.Slf4j;
  * @author <a href="https://github.com/hqing2002">Hqing</a>
  */
 @Slf4j
-public class VertxHttpServer implements HttpServer {
+public class VertxHttpServer implements VertxServer {
     @Override
     public void doStart(int port) {
         // 创建Vert.x实例
