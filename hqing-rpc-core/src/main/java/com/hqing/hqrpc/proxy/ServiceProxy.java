@@ -62,6 +62,9 @@ public class ServiceProxy implements InvocationHandler {
         return null;
     }
 
+    /**
+     * 根据服务名从注册中心获取服务地址
+     */
     private String getServiceAddress(String serviceName) {
         //获取RPC配置
         RpcConfig rpcConfig = RpcApplication.getRpcConfig();

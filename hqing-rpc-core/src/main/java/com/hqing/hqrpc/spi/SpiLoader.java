@@ -1,6 +1,7 @@
 package com.hqing.hqrpc.spi;
 
 import cn.hutool.core.io.resource.ResourceUtil;
+import com.hqing.hqrpc.registry.Registry;
 import com.hqing.hqrpc.serializer.Serializer;
 import lombok.extern.slf4j.Slf4j;
 
@@ -47,7 +48,7 @@ public class SpiLoader {
     /**
      * 需要加载的接口列表
      */
-    private static final List<Class<?>> LOAD_CLASS_LIST = List.of(Serializer.class);
+    private static final List<Class<?>> LOAD_CLASS_LIST = List.of(Serializer.class, Registry.class);
 
     /**
      * 加载所有SPI接口

@@ -8,8 +8,8 @@ import com.hqing.hqrpc.model.ServiceMetaInfo;
 import com.hqing.hqrpc.registry.LocalRegistry;
 import com.hqing.hqrpc.registry.Registry;
 import com.hqing.hqrpc.registry.RegistryFactory;
-import com.hqing.hqrpc.server.HttpServer;
-import com.hqing.hqrpc.server.VertxHttpServer;
+import com.hqing.hqrpc.server.VertxServer;
+import com.hqing.hqrpc.server.http.VertxHttpServer;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -39,7 +39,7 @@ public class ExampleProviderApplication {
             throw new RuntimeException(e);
         }
         //启动web服务器, 提供服务
-        HttpServer httpServer = new VertxHttpServer();
-        httpServer.doStart(RpcApplication.getRpcConfig().getServerPort());
+        VertxServer vertxServer = new VertxHttpServer();
+        vertxServer.doStart(RpcApplication.getRpcConfig().getServerPort());
     }
 }

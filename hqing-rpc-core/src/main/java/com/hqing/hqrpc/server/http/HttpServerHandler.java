@@ -1,4 +1,4 @@
-package com.hqing.hqrpc.server;
+package com.hqing.hqrpc.server.http;
 
 import com.hqing.hqrpc.RpcApplication;
 import com.hqing.hqrpc.model.RpcRequest;

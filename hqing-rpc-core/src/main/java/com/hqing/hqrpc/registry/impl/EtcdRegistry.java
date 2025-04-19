@@ -206,7 +206,8 @@ public class EtcdRegistry implements Registry {
             for (String key : localRegisterNodeKeySet) {
                 try {
                     //获取key的值
-                    List<KeyValue> keyValues = kvClient.get(ByteSequence.from(key, StandardCharsets.UTF_8)).get().getKvs();
+                    List<KeyValue> keyValues = kvClient.get(ByteSequence.from(key, StandardCharsets.UTF_8))
+                            .get(timeout, RpcConstant.DEFAULT_TIME_UNIT).getKvs();
 
                     //节点过期(说明服务宕机需要重启节点)
                     if (CollUtil.isEmpty(keyValues)) {

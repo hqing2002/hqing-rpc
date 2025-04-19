@@ -5,7 +5,7 @@ package com.hqing.hqrpc.server;
  *
  * @author <a href="https://github.com/hqing2002">Hqing</a>
  */
-public interface HttpServer {
+public interface VertxServer {
     /**
      * 启动服务器
      *
