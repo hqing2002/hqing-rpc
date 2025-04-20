@@ -23,6 +23,7 @@ public class MySerializer implements Serializer {
             return outputStream.toByteArray();
         }
     }
+
     @Override
     public <T> T deserialize(byte[] bytes, Class<T> type) throws IOException {
         System.out.println("使用自定义序列化器反序列化");

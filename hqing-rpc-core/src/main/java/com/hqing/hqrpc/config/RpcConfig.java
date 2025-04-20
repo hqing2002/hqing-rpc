@@ -1,5 +1,6 @@
 package com.hqing.hqrpc.config;
 
+import com.hqing.hqrpc.loadbalancer.LoadBalancerKeys;
 import lombok.Data;
 
 /**
@@ -23,6 +24,11 @@ public class RpcConfig {
      * 开启mock模拟调用
      */
     private boolean mock = false;
+
+    /**
+     * 负载均衡器
+     */
+    private String loadBalancer = LoadBalancerKeys.ROUND_ROBIN;
 
     /**
      * 协议配置

@@ -12,7 +12,8 @@ import com.hqing.hqrpc.model.ServiceMetaInfo;
 public interface VertxClient {
     /**
      * 发送网络请求并解析
-     * @param rpcRequest rpc请求对象
+     *
+     * @param rpcRequest      rpc请求对象
      * @param serviceMetaInfo 请求服务的元信息
      * @return rpc相应对象
      */

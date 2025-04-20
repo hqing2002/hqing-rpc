@@ -1,9 +1,12 @@
 package com.hqing.hqrpc.proxy;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.net.NetUtil;
 import com.hqing.hqrpc.RpcApplication;
 import com.hqing.hqrpc.config.RpcConfig;
 import com.hqing.hqrpc.constant.RpcConstant;
+import com.hqing.hqrpc.loadbalancer.LoadBalancer;
+import com.hqing.hqrpc.loadbalancer.LoadBalancerFactory;
 import com.hqing.hqrpc.model.RpcRequest;
 import com.hqing.hqrpc.model.ServiceMetaInfo;
 import com.hqing.hqrpc.registry.Registry;
@@ -14,7 +17,10 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
+import java.net.InetAddress;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 服务代理(JDK动态代理)
@@ -69,8 +75,13 @@ public class ServiceProxy implements InvocationHandler {
         if (CollUtil.isEmpty(serviceMetaInfoList)) {
             throw new RuntimeException("暂无服务地址");
         }
-        //todo 负载均衡
-        ServiceMetaInfo selectedServiceMetaInfo = serviceMetaInfoList.get(0);
-        return selectedServiceMetaInfo;
+        //获取负载均衡器
+        LoadBalancer loadBalancer = LoadBalancerFactory.getInstance(rpcConfig.getLoadBalancer());
+        //将调用方IP + 请求服务名称作为负载均衡器请求参数
+        Map<String, Object> requestParams = new HashMap<>();
+        InetAddress inetAddress = NetUtil.getLocalhost();
+        requestParams.put("ip", inetAddress.getHostAddress());
+        requestParams.put("serviceName", serviceName);
+        return loadBalancer.select(requestParams, serviceMetaInfoList);
     }
 }
