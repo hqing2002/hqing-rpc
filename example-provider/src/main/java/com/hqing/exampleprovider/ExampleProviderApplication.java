@@ -1,5 +1,6 @@
 package com.hqing.exampleprovider;
 
+import cn.hutool.core.net.NetUtil;
 import com.hqing.examplecommon.service.UserService;
 import com.hqing.hqrpc.RpcApplication;
 import com.hqing.hqrpc.config.RegistryConfig;
@@ -8,10 +9,11 @@ import com.hqing.hqrpc.model.ServiceMetaInfo;
 import com.hqing.hqrpc.registry.LocalRegistry;
 import com.hqing.hqrpc.registry.Registry;
 import com.hqing.hqrpc.registry.RegistryFactory;
+import com.hqing.hqrpc.server.ServerFactory;
 import com.hqing.hqrpc.server.VertxServer;
-import com.hqing.hqrpc.server.http.VertxHttpServer;
-import com.hqing.hqrpc.server.tcp.VertxTcpServer;
 import lombok.extern.slf4j.Slf4j;
+
+import java.net.InetAddress;
 
 /**
  * 服务提供者启动类
@@ -27,12 +29,13 @@ public class ExampleProviderApplication {
 
         //注册服务到注册中心
         RpcConfig rpcConfig = RpcApplication.getRpcConfig();
-        RegistryConfig registryConfig = rpcConfig.getRegistryConfig();
-        Registry registry = RegistryFactory.getInstance(registryConfig.getRegistry());
+        RegistryConfig registryConfig = rpcConfig.getRegistry();
+        Registry registry = RegistryFactory.getInstance(registryConfig.getName());
         ServiceMetaInfo serviceMetaInfo = new ServiceMetaInfo();
         serviceMetaInfo.setServiceName(serviceName);
-        serviceMetaInfo.setServiceHost(rpcConfig.getSeverHost());
-        serviceMetaInfo.setServicePort(rpcConfig.getServerPort());
+        InetAddress localhost = NetUtil.getLocalhost();
+        serviceMetaInfo.setServiceHost(localhost.getHostAddress());
+        serviceMetaInfo.setServicePort(rpcConfig.getProtocol().getPort());
         try {
             registry.register(serviceMetaInfo);
         } catch (Exception e) {
@@ -40,7 +43,7 @@ public class ExampleProviderApplication {
             throw new RuntimeException(e);
         }
         //启动web服务器, 提供服务
-        VertxServer vertxServer = new VertxTcpServer();
-        vertxServer.doStart(RpcApplication.getRpcConfig().getServerPort());
+        VertxServer vertxServer = ServerFactory.getVertxServer(rpcConfig.getProtocol().getName());
+        vertxServer.doStart(RpcApplication.getRpcConfig().getProtocol().getPort());
     }
 }

@@ -1,2 +1,4 @@
 rpc:
-  serverPort: 8080
+  protocol:
+    port: 20880
+    serializer: MySerializer

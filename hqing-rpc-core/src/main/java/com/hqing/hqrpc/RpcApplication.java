@@ -31,8 +31,8 @@ public class RpcApplication {
         log.info("RPC初始化配置: {}", newRpcConfig);
 
         //注册中心初始化
-        RegistryConfig registryConfig = rpcConfig.getRegistryConfig();
-        Registry registry = RegistryFactory.getInstance(registryConfig.getRegistry());
+        RegistryConfig registryConfig = rpcConfig.getRegistry();
+        Registry registry = RegistryFactory.getInstance(registryConfig.getName());
         registry.init(registryConfig);
         log.info("注册中心初始化配置: {}", registryConfig);
 

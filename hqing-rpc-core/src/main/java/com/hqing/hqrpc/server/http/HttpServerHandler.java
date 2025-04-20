@@ -23,7 +23,7 @@ import java.lang.reflect.Method;
 @Slf4j
 public class HttpServerHandler implements Handler<HttpServerRequest> {
     //从配置文件中读取序列化器名称,使用工厂获取序列化器
-    private static final Serializer SERIALIZER = SerializerFactory.getInstance(RpcApplication.getRpcConfig().getSerializer());
+    private static final Serializer SERIALIZER = SerializerFactory.getInstance(RpcApplication.getRpcConfig().getProtocol().getSerializer());
 
     /**
      * 处理Http请求

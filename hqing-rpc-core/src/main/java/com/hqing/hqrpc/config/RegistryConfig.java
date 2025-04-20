@@ -11,9 +11,9 @@ import lombok.Data;
 @Data
 public class RegistryConfig {
     /**
-     * 注册中心类别
+     * 注册中心名称
      */
-    private String registry = RegistryKeys.ETCD;
+    private String name = RegistryKeys.ETCD;
 
     /**
      * 注册中心地址
@@ -31,7 +31,7 @@ public class RegistryConfig {
     private String password;
 
     /**
-     * 超时时间(单位毫秒)
+     * 注册中心api执行超时时间(单位毫秒)
      */
     private Long timeout = 5000L;
 }

@@ -1,0 +1,2 @@
+HTTP=com.hqing.hqrpc.server.http.HttpClient
+TCP=com.hqing.hqrpc.server.tcp.TcpClient

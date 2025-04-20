@@ -30,8 +30,7 @@ public class TcpServerHandler implements Handler<NetSocket> {
      */
     @Override
     public void handle(NetSocket netSocket) {
-        //处理连接
-        netSocket.handler(buffer -> {
+        TcpBufferHandlerWrapper tcpBufferHandlerWrapper = new TcpBufferHandlerWrapper(buffer -> {
             //解码
             ProtocolMessage<RpcRequest> protocolMessage;
             try {
@@ -54,6 +53,7 @@ public class TcpServerHandler implements Handler<NetSocket> {
                 throw new RuntimeException("协议消息编码错误");
             }
         });
+        netSocket.handler(tcpBufferHandlerWrapper);
     }
 
     /**

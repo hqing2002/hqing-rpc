@@ -51,7 +51,7 @@ public enum ProtocolMessageSerializerEnum {
     /**
      * 根据协议序列化器值获取枚举
      */
-    public static ProtocolMessageSerializerEnum getEnumBySerializerValue(String value) {
+    public static ProtocolMessageSerializerEnum getEnumByValue(String value) {
         if (StrUtil.isBlank(value)) {
             return null;
         }

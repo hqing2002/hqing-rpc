@@ -1,6 +1,5 @@
 package com.hqing.hqrpc.config;
 
-import com.hqing.hqrpc.serializer.SerializerKeys;
 import lombok.Data;
 
 /**
@@ -21,27 +20,17 @@ public class RpcConfig {
     private String version = "1.0";
 
     /**
-     * 服务器主机名
-     */
-    private String severHost = "localhost";
-
-    /**
-     * 服务器端口号
-     */
-    private Integer serverPort = 8080;
-
-    /**
      * 开启mock模拟调用
      */
     private boolean mock = false;
 
     /**
-     * 序列化器
+     * 协议配置
      */
-    private String serializer = SerializerKeys.JDK;
+    private ProtocolConfig protocol = new ProtocolConfig();
 
     /**
      * 注册中心配置
      */
-    private RegistryConfig registryConfig = new RegistryConfig();
+    private RegistryConfig registry = new RegistryConfig();
 }
