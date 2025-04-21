@@ -9,15 +9,15 @@ public interface TolerantStrategyKeys {
     /**
      * 快速失败
      */
-    String FAIL_FAST = "FAIL_FAST";
+    String FAIL_FAST = "failFast";
 
     /**
      * 静默处理
      */
-    String FAIL_SAFE = "FAIL_SAFE";
+    String FAIL_SAFE = "failSafe";
 
     /**
      * 故障转移
      */
-    String FAIL_OVER = "FAIL_OVER";
+    String FAIL_OVER = "failOver";
 }

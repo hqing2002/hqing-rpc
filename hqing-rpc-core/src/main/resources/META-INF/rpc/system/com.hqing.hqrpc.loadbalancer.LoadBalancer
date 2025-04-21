@@ -1,3 +1,3 @@
-ROUND_ROBIN=com.hqing.hqrpc.loadbalancer.impl.RoundRobinLoadBalancer
-RANDOM=com.hqing.hqrpc.loadbalancer.impl.RandomLoadBalancer
-CONSISTENT_HASH=com.hqing.hqrpc.loadbalancer.impl.ConsistentHashLoadBalancer
+roundRobin=com.hqing.hqrpc.loadbalancer.impl.RoundRobinLoadBalancer
+random=com.hqing.hqrpc.loadbalancer.impl.RandomLoadBalancer
+consistentHash=com.hqing.hqrpc.loadbalancer.impl.ConsistentHashLoadBalancer

@@ -6,6 +6,6 @@ package com.hqing.hqrpc.server;
  * @author <a href="https://github.com/hqing2002">Hqing</a>
  */
 public interface ServerKeys {
-    String HTTP = "HTTP";
-    String TCP = "TCP";
+    String HTTP = "http";
+    String TCP = "tcp";
 }

@@ -1,2 +1,2 @@
-HTTP=com.hqing.hqrpc.server.http.VertxHttpServer
-TCP=com.hqing.hqrpc.server.tcp.VertxTcpServer
+http=com.hqing.hqrpc.server.http.VertxHttpServer
+tcp=com.hqing.hqrpc.server.tcp.VertxTcpServer

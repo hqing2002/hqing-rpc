@@ -9,25 +9,25 @@ public interface RetryStrategyKeys {
     /**
      * 不重试
      */
-    String NO = "NO";
+    String NO = "noRetry";
 
     /**
      * 固定时间间隔
      */
-    String FIXED_INTERVAL = "FIXED_INTERVAL";
+    String FIXED_INTERVAL = "fixedInterval";
 
     /**
      * 指数时间间隔
      */
-    String EXPONENTIAL_INTERVAL = "EXPONENTIAL_INTERVAL";
+    String EXPONENTIAL_INTERVAL = "exponentialInterval";
 
     /**
      * 递增时间间隔
      */
-    String INCREMENTING_INTERVAL = "INCREMENTING_INTERVAL";
+    String INCREMENTING_INTERVAL = "incrementingInterval";
 
     /**
      * 随机时间间隔
      */
-    String RANDOM_INTERVAL = "RANDOM_INTERVAL";
+    String RANDOM_INTERVAL = "randomInterval";
 }

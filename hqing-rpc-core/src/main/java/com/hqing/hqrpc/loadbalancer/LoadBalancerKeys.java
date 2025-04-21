@@ -9,15 +9,15 @@ public interface LoadBalancerKeys {
     /**
      * 轮询
      */
-    String ROUND_ROBIN = "ROUND_ROBIN";
+    String ROUND_ROBIN = "roundRobin";
 
     /**
      * 随机
      */
-    String RANDOM = "RANDOM";
+    String RANDOM = "random";
 
     /**
      * 一致性哈希
      */
-    String CONSISTENT_HASH = "CONSISTENT_HASH";
+    String CONSISTENT_HASH = "consistentHash";
 }

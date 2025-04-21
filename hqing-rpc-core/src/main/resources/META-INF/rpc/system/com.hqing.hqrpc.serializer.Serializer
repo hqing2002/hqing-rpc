@@ -1,4 +1,4 @@
-JDK=com.hqing.hqrpc.serializer.impl.JdkSerializer
-JSON=com.hqing.hqrpc.serializer.impl.JsonSerializer
-KRYO=com.hqing.hqrpc.serializer.impl.KryoSerializer
-HESSIAN=com.hqing.hqrpc.serializer.impl.HessianSerializer
+jdk=com.hqing.hqrpc.serializer.impl.JdkSerializer
+json=com.hqing.hqrpc.serializer.impl.JsonSerializer
+kryo=com.hqing.hqrpc.serializer.impl.KryoSerializer
+hessian=com.hqing.hqrpc.serializer.impl.HessianSerializer

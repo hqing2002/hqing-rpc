@@ -6,5 +6,5 @@ package com.hqing.hqrpc.registry;
  * @author <a href="https://github.com/hqing2002">Hqing</a>
  */
 public interface RegistryKeys {
-    String ETCD = "ETCD";
+    String ETCD = "etcd";
 }

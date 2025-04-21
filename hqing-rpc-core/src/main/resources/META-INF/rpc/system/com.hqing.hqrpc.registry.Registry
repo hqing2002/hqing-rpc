@@ -1,1 +1,1 @@
-ETCD=com.hqing.hqrpc.registry.impl.EtcdRegistry
+etcd=com.hqing.hqrpc.registry.impl.EtcdRegistry
