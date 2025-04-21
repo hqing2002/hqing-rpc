@@ -92,6 +92,8 @@ public class TcpClient implements VertxClient {
         RpcResponse rpcResponse = responseCompletableFuture.orTimeout(TIMEOUT, RpcConstant.DEFAULT_TIME_UNIT).get();
         //关闭Tcp连接
         netClient.close();
+        //关闭Vertx服务
+        vertx.close();
         //返回响应结果
         return rpcResponse;
     }

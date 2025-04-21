@@ -22,7 +22,7 @@ public class RpcApplication {
      *
      * @param newRpcConfig 自定义配置
      */
-    public static void init(RpcConfig newRpcConfig) {
+    private static void init(RpcConfig newRpcConfig) {
         //传入空配置就用默认的
         if (newRpcConfig == null) {
             newRpcConfig = new RpcConfig();
@@ -43,7 +43,7 @@ public class RpcApplication {
     /**
      * 初始化, 从配置文件中读取Rpc配置
      */
-    public static void init() {
+    private static void init() {
         RpcConfig newRpcConfig;
         try {
             newRpcConfig = ConfigUtils.loadConfig(RpcConfig.class, RpcConstant.DEFAULT_CONFIG_PREFIX);

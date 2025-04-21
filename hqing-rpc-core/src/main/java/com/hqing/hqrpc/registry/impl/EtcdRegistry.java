@@ -85,8 +85,6 @@ public class EtcdRegistry implements Registry {
             etcdClient.getClusterClient().listMember().get(timeout, RpcConstant.DEFAULT_TIME_UNIT);
             //获取KV客户端
             kvClient = etcdClient.getKVClient();
-            //开启心跳检测
-            heartBeat();
         } catch (Exception e) {
             log.error("ETCD注册中心连接失败", e.getCause());
             destroy();

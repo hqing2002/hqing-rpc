@@ -2,6 +2,7 @@ package com.hqing.exampleconsumer;
 
 import com.hqing.examplecommon.model.User;
 import com.hqing.examplecommon.service.UserService;
+import com.hqing.hqrpc.bootstrap.ConsumerBootstrap;
 import com.hqing.hqrpc.proxy.ServiceProxyFactory;
 
 /**
@@ -11,6 +12,8 @@ import com.hqing.hqrpc.proxy.ServiceProxyFactory;
  */
 public class ExampleConsumerApplication {
     public static void main(String[] args) {
+        ConsumerBootstrap.init();
+
         //rpc获取用户服务实现类
         UserService userService = ServiceProxyFactory.getProxy(UserService.class);
         User user = userService.getUser("hqing");
