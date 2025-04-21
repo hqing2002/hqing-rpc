@@ -1,5 +1,6 @@
 package com.hqing.hqrpc.config;
 
+import com.hqing.hqrpc.fault.retry.RetryStrategyKeys;
 import com.hqing.hqrpc.loadbalancer.LoadBalancerKeys;
 import lombok.Data;
 
@@ -29,6 +30,11 @@ public class RpcConfig {
      * 负载均衡器
      */
     private String loadBalancer = LoadBalancerKeys.ROUND_ROBIN;
+
+    /**
+     * 重试策略
+     */
+    private String retryStrategy = RetryStrategyKeys.NO;
 
     /**
      * 协议配置

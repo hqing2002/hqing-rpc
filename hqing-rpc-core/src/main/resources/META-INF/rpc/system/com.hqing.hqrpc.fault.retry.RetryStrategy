@@ -1,0 +1,5 @@
+NO=com.hqing.hqrpc.fault.retry.impl.NoRetryStrategy
+FIXED_INTERVAL=com.hqing.hqrpc.fault.retry.impl.FixedIntervalRetryStrategy
+EXPONENTIAL_INTERVAL=com.hqing.hqrpc.fault.retry.impl.ExponentialIntervalRetryStrategy
+INCREMENTING_INTERVAL=com.hqing.hqrpc.fault.retry.impl.IncrementingIntervalRetryStrategy
+RANDOM_INTERVAL=com.hqing.hqrpc.fault.retry.impl.RandomIntervalRetryStrategy

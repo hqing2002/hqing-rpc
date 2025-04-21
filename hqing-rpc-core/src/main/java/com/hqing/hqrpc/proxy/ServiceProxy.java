@@ -5,9 +5,12 @@ import cn.hutool.core.net.NetUtil;
 import com.hqing.hqrpc.RpcApplication;
 import com.hqing.hqrpc.config.RpcConfig;
 import com.hqing.hqrpc.constant.RpcConstant;
+import com.hqing.hqrpc.fault.retry.RetryStrategy;
+import com.hqing.hqrpc.fault.retry.RetryStrategyFactory;
 import com.hqing.hqrpc.loadbalancer.LoadBalancer;
 import com.hqing.hqrpc.loadbalancer.LoadBalancerFactory;
 import com.hqing.hqrpc.model.RpcRequest;
+import com.hqing.hqrpc.model.RpcResponse;
 import com.hqing.hqrpc.model.ServiceMetaInfo;
 import com.hqing.hqrpc.registry.Registry;
 import com.hqing.hqrpc.registry.RegistryFactory;
@@ -45,13 +48,20 @@ public class ServiceProxy implements InvocationHandler {
                 .build();
         //获取服务元信息
         ServiceMetaInfo serviceMetaInfo = getServiceMetaInfo(serviceName);
-
+        //获取Rpc框架配置
+        RpcConfig rpcConfig = RpcApplication.getRpcConfig();
         //获取Vertx客户端
-        VertxClient vertxClient = ServerFactory.getVertxClient(RpcApplication.getRpcConfig().getProtocol().getName());
+        VertxClient vertxClient = ServerFactory.getVertxClient(rpcConfig.getProtocol().getName());
         try {
-            return vertxClient.doRequest(rpcRequest, serviceMetaInfo).getData();
+            //获取重试策略
+            RetryStrategy retryStrategy = RetryStrategyFactory.getInstances(rpcConfig.getRetryStrategy());
+            //调用重试策略
+            RpcResponse rpcResponse = retryStrategy.doRetry(() ->
+                    vertxClient.doRequest(rpcRequest, serviceMetaInfo)
+            );
+            return rpcResponse.getData();
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("调用失败", e);
         }
     }
 

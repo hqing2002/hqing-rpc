@@ -15,21 +15,21 @@
     </properties>
 
     <dependencies>
-        <!-- https://mvnrepository.com/artifact/io.vertx/vertx-core -->
+        <!--vertx-core-->
         <dependency>
             <groupId>io.vertx</groupId>
             <artifactId>vertx-core</artifactId>
             <version>4.5.3</version>
         </dependency>
 
-        <!-- https://doc.hutool.cn/ -->
+        <!--hutool -->
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
             <version>5.8.24</version>
         </dependency>
 
-        <!-- https://projectlombok.org/ -->
+        <!--lombok-->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -37,7 +37,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/ch.qos.logback/logback-classic -->
+        <!--logback-classic-->
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
@@ -66,25 +66,32 @@
             <version>2.15.2</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/com.caucho/hessian -->
+        <!--hessian-->
         <dependency>
             <groupId>com.caucho</groupId>
             <artifactId>hessian</artifactId>
             <version>4.0.66</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/com.esotericsoftware/kryo -->
+        <!--kryo-->
         <dependency>
             <groupId>com.esotericsoftware</groupId>
             <artifactId>kryo</artifactId>
             <version>5.6.0</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/io.etcd/jetcd-core -->
+        <!--jetcd-core-->
         <dependency>
             <groupId>io.etcd</groupId>
             <artifactId>jetcd-core</artifactId>
             <version>0.8.2</version>
+        </dependency>
+
+        <!--guava-retrying-->
+        <dependency>
+            <groupId>com.github.rholder</groupId>
+            <artifactId>guava-retrying</artifactId>
+            <version>2.0.0</version>
         </dependency>
     </dependencies>
 
