@@ -7,6 +7,8 @@ import com.hqing.hqrpc.config.RpcConfig;
 import com.hqing.hqrpc.constant.RpcConstant;
 import com.hqing.hqrpc.fault.retry.RetryStrategy;
 import com.hqing.hqrpc.fault.retry.RetryStrategyFactory;
+import com.hqing.hqrpc.fault.tolerant.TolerantStrategy;
+import com.hqing.hqrpc.fault.tolerant.TolerantStrategyFactory;
 import com.hqing.hqrpc.loadbalancer.LoadBalancer;
 import com.hqing.hqrpc.loadbalancer.LoadBalancerFactory;
 import com.hqing.hqrpc.model.RpcRequest;
@@ -61,7 +63,16 @@ public class ServiceProxy implements InvocationHandler {
             );
             return rpcResponse.getData();
         } catch (Exception e) {
-            throw new RuntimeException("调用失败", e);
+            //获取容错策略
+            TolerantStrategy tolerantStrategy = TolerantStrategyFactory.getInstances(rpcConfig.getTolerantStrategy());
+            //再次获取服务元信息
+            ServiceMetaInfo newServiceMetaInfo = getServiceMetaInfo(serviceName);
+            //构造容错上下文对象
+            HashMap<String, Object> context = new HashMap<>();
+            context.put("serviceMetaInfo", newServiceMetaInfo);
+            context.put("rpcRequest", rpcRequest);
+            RpcResponse rpcResponse = tolerantStrategy.doTolerant(context, e);
+            return rpcResponse.getData();
         }
     }
 

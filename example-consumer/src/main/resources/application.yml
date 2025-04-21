@@ -1,2 +1,3 @@
 rpc:
   retryStrategy: RANDOM_INTERVAL
+  tolerantStrategy: FAIL_OVER

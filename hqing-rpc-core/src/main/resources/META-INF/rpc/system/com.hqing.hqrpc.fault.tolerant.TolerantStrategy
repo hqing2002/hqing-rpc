@@ -1,0 +1,3 @@
+FAIL_FAST=com.hqing.hqrpc.fault.tolerant.impl.FailFastTolerantStrategy
+FAIL_SAFE=com.hqing.hqrpc.fault.tolerant.impl.FailSafeTolerantStrategy
+FAIL_OVER=com.hqing.hqrpc.fault.tolerant.impl.FailOverTolerantStrategy
