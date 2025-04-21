@@ -12,11 +12,10 @@ import java.lang.reflect.Proxy;
  */
 @Slf4j
 public class ServiceProxyFactory {
-
     /**
      * 根据服务类获取代理对象
      */
-    public static <T> T getProxy(Class<T> serviceClass) {
+    public static <T> T getProxy(Class<T> serviceClass, String serviceVersion) {
         if (RpcApplication.getRpcConfig().getConsumer().isMock()) {
             log.info("开启MOCK调用模式");
             return getMockProxy(serviceClass);
@@ -25,7 +24,7 @@ public class ServiceProxyFactory {
         return serviceClass.cast(Proxy.newProxyInstance(
                 serviceClass.getClassLoader(),
                 new Class[]{serviceClass},
-                new ServiceProxy()));
+                new ServiceProxy(serviceVersion)));
     }
 
     /**

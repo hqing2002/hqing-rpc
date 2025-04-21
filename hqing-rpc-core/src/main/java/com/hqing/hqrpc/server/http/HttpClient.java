@@ -9,17 +9,21 @@ import com.hqing.hqrpc.model.ServiceMetaInfo;
 import com.hqing.hqrpc.serializer.Serializer;
 import com.hqing.hqrpc.serializer.SerializerFactory;
 import com.hqing.hqrpc.server.VertxClient;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Http客户端
  *
  * @author <a href="https://github.com/hqing2002">Hqing</a>
  */
+@Slf4j
 public class HttpClient implements VertxClient {
     private static final Long TIMEOUT = RpcApplication.getRpcConfig().getConsumer().getTimeout();
 
     @Override
     public RpcResponse doRequest(RpcRequest rpcRequest, ServiceMetaInfo serviceMetaInfo) throws Exception {
+        //输出日志
+        log.info("发起远程调用, 请求信息: {}", serviceMetaInfo);
         //获取序列化器
         Serializer serializer = SerializerFactory.getInstance(RpcApplication.getRpcConfig().getProtocol().getSerializer());
         //序列化请求体

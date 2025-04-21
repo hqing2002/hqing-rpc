@@ -15,7 +15,7 @@ public class ExampleConsumerApplication {
         ConsumerBootstrap.init();
 
         //rpc获取用户服务实现类
-        UserService userService = ServiceProxyFactory.getProxy(UserService.class);
+        UserService userService = ServiceProxyFactory.getProxy(UserService.class, "2.0");
         User user = userService.getUser("hqing");
         User user1 = userService.getUser("hqing1");
         User user2 = userService.getUser("hqing2");

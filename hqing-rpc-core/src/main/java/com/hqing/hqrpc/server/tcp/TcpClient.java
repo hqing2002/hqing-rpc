@@ -28,6 +28,8 @@ public class TcpClient implements VertxClient {
 
     @Override
     public RpcResponse doRequest(RpcRequest rpcRequest, ServiceMetaInfo serviceMetaInfo) throws Exception {
+        //输出日志
+        log.info("发起远程调用, 请求信息: {}", serviceMetaInfo);
         //获取序列化器配置
         String serializerKey = RpcApplication.getRpcConfig().getProtocol().getSerializer();
         //创建Vertx Tcp连接客户端

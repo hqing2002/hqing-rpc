@@ -18,6 +18,8 @@ import com.hqing.hqrpc.registry.Registry;
 import com.hqing.hqrpc.registry.RegistryFactory;
 import com.hqing.hqrpc.server.ServerFactory;
 import com.hqing.hqrpc.server.VertxClient;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.InvocationHandler;
@@ -33,7 +35,13 @@ import java.util.Map;
  * @author <a href="https://github.com/hqing2002">Hqing</a>
  */
 @Slf4j
+@AllArgsConstructor
+@NoArgsConstructor
 public class ServiceProxy implements InvocationHandler {
+    /**
+     * 服务版本
+     */
+    private String serviceVersion = RpcConstant.DEFAULT_SERVICE_VERSION;
 
     /**
      * 调用代理
@@ -49,7 +57,7 @@ public class ServiceProxy implements InvocationHandler {
                 .args(args)
                 .build();
         //获取服务元信息
-        ServiceMetaInfo serviceMetaInfo = getServiceMetaInfo(serviceName);
+        ServiceMetaInfo serviceMetaInfo = getServiceMetaInfo(serviceName, serviceVersion);
         //获取Rpc框架配置
         RpcConfig rpcConfig = RpcApplication.getRpcConfig();
         //获取Vertx客户端
@@ -66,7 +74,7 @@ public class ServiceProxy implements InvocationHandler {
             //获取容错策略
             TolerantStrategy tolerantStrategy = TolerantStrategyFactory.getInstances(rpcConfig.getConsumer().getTolerantStrategy());
             //再次获取服务元信息
-            ServiceMetaInfo newServiceMetaInfo = getServiceMetaInfo(serviceName);
+            ServiceMetaInfo newServiceMetaInfo = getServiceMetaInfo(serviceName, serviceVersion);
             //构造容错上下文对象
             HashMap<String, Object> context = new HashMap<>();
             context.put("serviceMetaInfo", newServiceMetaInfo);
@@ -79,7 +87,7 @@ public class ServiceProxy implements InvocationHandler {
     /**
      * 根据服务名从注册中心获取服务元数据
      */
-    private ServiceMetaInfo getServiceMetaInfo(String serviceName) {
+    private ServiceMetaInfo getServiceMetaInfo(String serviceName, String serviceVersion) {
         //获取RPC配置
         RpcConfig rpcConfig = RpcApplication.getRpcConfig();
 
@@ -89,7 +97,7 @@ public class ServiceProxy implements InvocationHandler {
         //构造当前请求服务的元信息
         ServiceMetaInfo serviceMetaInfo = new ServiceMetaInfo();
         serviceMetaInfo.setServiceName(serviceName);
-        serviceMetaInfo.setServiceVersion(RpcConstant.DEFAULT_SERVICE_VERSION);
+        serviceMetaInfo.setServiceVersion(serviceVersion);
 
         //服务发现
         List<ServiceMetaInfo> serviceMetaInfoList = registry.serviceDiscovery(serviceMetaInfo.getServiceKey());

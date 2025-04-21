@@ -51,7 +51,7 @@ public class ProviderBootstrap {
             //获取注册中心实例
             Registry registry = RegistryFactory.getInstance(registryConfig.getName());
             //开启心跳检测
-            if(FIRST_START_HEAT_BEAT.get()) {
+            if (FIRST_START_HEAT_BEAT.get()) {
                 registry.heartBeat();
                 FIRST_START_HEAT_BEAT.set(false);
             }

@@ -15,7 +15,7 @@ public class AtomicTest {
 
     public static int test() {
         int a = 1;
-        if(FIRST_START.get()) {
+        if (FIRST_START.get()) {
             a = 2;
             FIRST_START.set(false);
         }
