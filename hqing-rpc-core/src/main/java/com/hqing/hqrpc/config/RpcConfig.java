@@ -1,8 +1,5 @@
 package com.hqing.hqrpc.config;
 
-import com.hqing.hqrpc.fault.retry.RetryStrategyKeys;
-import com.hqing.hqrpc.fault.tolerant.TolerantStrategyKeys;
-import com.hqing.hqrpc.loadbalancer.LoadBalancerKeys;
 import lombok.Data;
 
 /**
@@ -23,24 +20,9 @@ public class RpcConfig {
     private String version = "1.0";
 
     /**
-     * 开启mock模拟调用
+     * 服务消费者配置
      */
-    private boolean mock = false;
-
-    /**
-     * 负载均衡器
-     */
-    private String loadBalancer = LoadBalancerKeys.ROUND_ROBIN;
-
-    /**
-     * 重试策略
-     */
-    private String retryStrategy = RetryStrategyKeys.NO;
-
-    /**
-     * 容错策略
-     */
-    private String tolerantStrategy = TolerantStrategyKeys.FAIL_FAST;
+    private ConsumerConfig consumer = new ConsumerConfig();
 
     /**
      * 协议配置

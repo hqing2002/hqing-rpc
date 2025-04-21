@@ -25,9 +25,4 @@ public class ProtocolConfig {
      * 序列化器
      */
     private String serializer = SerializerKeys.JDK;
-
-    /**
-     * 远程服务调用超时时间(单位毫秒)
-     */
-    private Long timeout = 5000L;
 }

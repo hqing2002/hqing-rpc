@@ -24,7 +24,7 @@ import java.util.concurrent.CompletableFuture;
  */
 @Slf4j
 public class TcpClient implements VertxClient {
-    private static final Long TIMEOUT = RpcApplication.getRpcConfig().getProtocol().getTimeout();
+    private static final Long TIMEOUT = RpcApplication.getRpcConfig().getConsumer().getTimeout();
 
     @Override
     public RpcResponse doRequest(RpcRequest rpcRequest, ServiceMetaInfo serviceMetaInfo) throws Exception {

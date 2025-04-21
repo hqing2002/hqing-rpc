@@ -56,7 +56,7 @@ public class ServiceProxy implements InvocationHandler {
         VertxClient vertxClient = ServerFactory.getVertxClient(rpcConfig.getProtocol().getName());
         try {
             //获取重试策略
-            RetryStrategy retryStrategy = RetryStrategyFactory.getInstances(rpcConfig.getRetryStrategy());
+            RetryStrategy retryStrategy = RetryStrategyFactory.getInstances(rpcConfig.getConsumer().getRetryStrategy());
             //调用重试策略
             RpcResponse rpcResponse = retryStrategy.doRetry(() ->
                     vertxClient.doRequest(rpcRequest, serviceMetaInfo)
@@ -64,7 +64,7 @@ public class ServiceProxy implements InvocationHandler {
             return rpcResponse.getData();
         } catch (Exception e) {
             //获取容错策略
-            TolerantStrategy tolerantStrategy = TolerantStrategyFactory.getInstances(rpcConfig.getTolerantStrategy());
+            TolerantStrategy tolerantStrategy = TolerantStrategyFactory.getInstances(rpcConfig.getConsumer().getTolerantStrategy());
             //再次获取服务元信息
             ServiceMetaInfo newServiceMetaInfo = getServiceMetaInfo(serviceName);
             //构造容错上下文对象
@@ -97,7 +97,7 @@ public class ServiceProxy implements InvocationHandler {
             throw new RuntimeException("暂无服务地址");
         }
         //获取负载均衡器
-        LoadBalancer loadBalancer = LoadBalancerFactory.getInstance(rpcConfig.getLoadBalancer());
+        LoadBalancer loadBalancer = LoadBalancerFactory.getInstance(rpcConfig.getConsumer().getLoadBalancer());
         //将调用方IP + 请求服务名称作为负载均衡器请求参数
         Map<String, Object> requestParams = new HashMap<>();
         InetAddress inetAddress = NetUtil.getLocalhost();

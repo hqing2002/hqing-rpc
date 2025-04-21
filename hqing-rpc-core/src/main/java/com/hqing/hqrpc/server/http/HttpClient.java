@@ -16,7 +16,7 @@ import com.hqing.hqrpc.server.VertxClient;
  * @author <a href="https://github.com/hqing2002">Hqing</a>
  */
 public class HttpClient implements VertxClient {
-    private static final Long TIMEOUT = RpcApplication.getRpcConfig().getProtocol().getTimeout();
+    private static final Long TIMEOUT = RpcApplication.getRpcConfig().getConsumer().getTimeout();
 
     @Override
     public RpcResponse doRequest(RpcRequest rpcRequest, ServiceMetaInfo serviceMetaInfo) throws Exception {
