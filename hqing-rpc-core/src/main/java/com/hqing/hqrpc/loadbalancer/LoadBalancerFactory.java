@@ -28,7 +28,7 @@ public class LoadBalancerFactory {
         try {
             loadBalancer = SpiLoader.getInstance(LoadBalancer.class, key);
         } catch (Exception e) {
-            log.error("负载均衡器加载失败, 使用默认的负载均衡器{}", DEFAULT_LOAD_BALANCER.getClass().getName());
+            log.error("负载均衡器: {}加载失败, 使用默认的负载均衡器{}", key, DEFAULT_LOAD_BALANCER.getClass().getName());
             loadBalancer = DEFAULT_LOAD_BALANCER;
         }
         return loadBalancer;

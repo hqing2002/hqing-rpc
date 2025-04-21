@@ -27,11 +27,10 @@ public class SerializerFactory {
      */
     public static Serializer getInstance(String key) {
         Serializer serializer;
-        log.info("加载序列化器: {}", key);
         try {
             serializer = SpiLoader.getInstance(Serializer.class, key);
         } catch (Exception e) {
-            log.error("序列化器加载失败, 使用默认序列化器: {}", DEFAULT_SERIALIZER.getClass().getName());
+            log.error("序列化器: {}加载失败, 使用默认序列化器: {}", key, DEFAULT_SERIALIZER.getClass().getName());
             serializer = DEFAULT_SERIALIZER;
         }
         return serializer;

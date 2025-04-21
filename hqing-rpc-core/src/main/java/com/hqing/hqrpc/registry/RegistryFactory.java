@@ -25,11 +25,10 @@ public class RegistryFactory {
      */
     public static Registry getInstance(String key) {
         Registry registry;
-        log.info("加载注册中心: {}", key);
         try {
             registry = SpiLoader.getInstance(Registry.class, key);
         } catch (Exception e) {
-            log.error("注册中心加载失败, 使用默认注册中心{}", DEFAULT_REGISTRY.getClass().getName());
+            log.error("注册中心: {}加载失败, 使用默认注册中心{}", key, DEFAULT_REGISTRY.getClass().getName());
             registry = DEFAULT_REGISTRY;
         }
         return registry;
