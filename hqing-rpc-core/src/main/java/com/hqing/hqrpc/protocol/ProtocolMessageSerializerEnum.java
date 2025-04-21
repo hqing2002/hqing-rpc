@@ -18,11 +18,11 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public enum ProtocolMessageSerializerEnum {
 
-    JDK(0, "JDK"),
-    JSON(1, "JSON"),
-    KRYO(2, "KRYO"),
-    HESSIAN(3, "HESSIAN"),
-    CUSTOMIZE(4, "CUSTOMIZE");
+    JDK(0, "jdk"),
+    JSON(1, "json"),
+    KRYO(2, "kryo"),
+    HESSIAN(3, "hessian"),
+    CUSTOMIZE(4, "customize");
 
     private final int key;
     private final String value;

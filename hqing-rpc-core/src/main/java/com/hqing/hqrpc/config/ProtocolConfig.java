@@ -17,7 +17,7 @@ public class ProtocolConfig {
     private String name = ServerKeys.TCP;
 
     /**
-     * 服务器端口号
+     * 服务暴露端口
      */
     private Integer port = 20880;
 

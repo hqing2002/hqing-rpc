@@ -22,6 +22,8 @@ public class ExampleProviderApplication {
                 (UserService.class.getName(), "2.0", UserServiceImpl.class);
         registerInfoList.add(serviceRegisterInfo);
         //服务提供者初始化
-        ProviderBootstrap.init(registerInfoList);
+        ProviderBootstrap.init();
+        //注册服务
+        ProviderBootstrap.registerService(registerInfoList);
     }
 }

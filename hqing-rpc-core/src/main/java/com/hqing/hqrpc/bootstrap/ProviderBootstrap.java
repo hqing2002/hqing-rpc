@@ -1,5 +1,6 @@
 package com.hqing.hqrpc.bootstrap;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.net.NetUtil;
 import com.hqing.hqrpc.RpcApplication;
 import com.hqing.hqrpc.config.RegistryConfig;
@@ -23,18 +24,48 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 public class ProviderBootstrap {
     /**
-     * 使用原子类保证只开启一次心跳检测
+     * 使用原子类保证只执行一次
      */
-    private static final AtomicBoolean FIRST_START_HEAT_BEAT = new AtomicBoolean(true);
+    private static final AtomicBoolean FIRST_INIT = new AtomicBoolean(true);
 
     /**
-     * 初始化
-     *
-     * @param serviceRegisterInfoList 服务注册列表
+     * 服务提供者初始化
      */
-    public static void init(List<ServiceRegisterInfo<?>> serviceRegisterInfoList) {
+    public static void init() {
         //Rpc框架初始化, 获取Rpc全局配置
         RpcConfig rpcConfig = RpcApplication.getRpcConfig();
+
+        //获取注册中心配置
+        RegistryConfig registryConfig = rpcConfig.getRegistry();
+        //获取注册中心实例
+        Registry registry = RegistryFactory.getInstance(registryConfig.getName());
+        //确保只执行一次心跳检测和服务器启动
+        if (FIRST_INIT.get()) {
+            //开启心跳检测
+            registry.heartBeat();
+            //启动web服务器, 提供服务
+            VertxServer vertxServer = ServerFactory.getVertxServer(rpcConfig.getProtocol().getName());
+            vertxServer.doStart(rpcConfig.getProtocol().getPort());
+            FIRST_INIT.set(false);
+        }
+    }
+
+    /**
+     * 服务注册
+     * @param serviceRegisterInfoList 注册服务信息列表
+     */
+    public static void registerService(List<ServiceRegisterInfo<?>> serviceRegisterInfoList) {
+        //待注册列表为空, 直接退出
+        if (CollUtil.isEmpty(serviceRegisterInfoList)) {
+            return;
+        }
+
+        //Rpc框架初始化, 获取Rpc全局配置
+        RpcConfig rpcConfig = RpcApplication.getRpcConfig();
+        //获取注册中心配置
+        RegistryConfig registryConfig = rpcConfig.getRegistry();
+        //获取注册中心实例
+        Registry registry = RegistryFactory.getInstance(registryConfig.getName());
 
         //注册服务
         for (ServiceRegisterInfo<?> serviceRegisterInfo : serviceRegisterInfoList) {
@@ -46,15 +77,6 @@ public class ProviderBootstrap {
             //本地注册
             LocalRegistry.register(serviceName, implClass);
 
-            //获取注册中心配置
-            RegistryConfig registryConfig = rpcConfig.getRegistry();
-            //获取注册中心实例
-            Registry registry = RegistryFactory.getInstance(registryConfig.getName());
-            //开启心跳检测
-            if (FIRST_START_HEAT_BEAT.get()) {
-                registry.heartBeat();
-                FIRST_START_HEAT_BEAT.set(false);
-            }
             //构造服务注册元数据
             ServiceMetaInfo serviceMetaInfo = new ServiceMetaInfo();
             serviceMetaInfo.setServiceName(serviceName);
@@ -70,10 +92,6 @@ public class ProviderBootstrap {
             } catch (Exception e) {
                 throw new RuntimeException(serviceName + "服务注册失败", e);
             }
-
-            //启动web服务器, 提供服务
-            VertxServer vertxServer = ServerFactory.getVertxServer(rpcConfig.getProtocol().getName());
-            vertxServer.doStart(rpcConfig.getProtocol().getPort());
         }
     }
 }

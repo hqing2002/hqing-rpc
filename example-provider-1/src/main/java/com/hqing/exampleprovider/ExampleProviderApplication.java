@@ -19,9 +19,11 @@ public class ExampleProviderApplication {
         //要注册的服务
         List<ServiceRegisterInfo<?>> registerInfoList = new ArrayList<>();
         ServiceRegisterInfo<UserService> serviceRegisterInfo = new ServiceRegisterInfo<>
-                (UserService.class.getName(), "1.0", UserServiceImpl.class);
+                (UserService.class.getName(), "2.0", UserServiceImpl.class);
         registerInfoList.add(serviceRegisterInfo);
         //服务提供者初始化
-        ProviderBootstrap.init(registerInfoList);
+        ProviderBootstrap.init();
+        //注册服务
+        ProviderBootstrap.registerService(registerInfoList);
     }
 }
