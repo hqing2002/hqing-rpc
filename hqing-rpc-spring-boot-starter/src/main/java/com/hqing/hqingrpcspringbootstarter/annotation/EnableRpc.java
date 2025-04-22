@@ -1,8 +1,7 @@
 package com.hqing.hqingrpcspringbootstarter.annotation;
 
-import com.hqing.hqingrpcspringbootstarter.bootstrap.RpcConsumerBootstrap;
 import com.hqing.hqingrpcspringbootstarter.bootstrap.RpcInitBootstrap;
-import com.hqing.hqingrpcspringbootstarter.bootstrap.RpcProviderBootstrap;
+import com.hqing.hqingrpcspringbootstarter.bootstrap.RpcServiceBootstrap;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.ElementType;
@@ -17,7 +16,7 @@ import java.lang.annotation.Target;
  */
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-@Import({RpcInitBootstrap.class, RpcProviderBootstrap.class, RpcConsumerBootstrap.class})
+@Import({RpcInitBootstrap.class, RpcServiceBootstrap.class})
 public @interface EnableRpc {
 
     /**

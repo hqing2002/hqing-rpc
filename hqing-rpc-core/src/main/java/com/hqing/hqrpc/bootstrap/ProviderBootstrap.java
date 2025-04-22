@@ -52,6 +52,7 @@ public class ProviderBootstrap {
 
     /**
      * 服务注册
+     *
      * @param serviceRegisterInfoList 注册服务信息列表
      */
     public static void registerService(List<ServiceRegisterInfo<?>> serviceRegisterInfoList) {
