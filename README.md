@@ -6,7 +6,6 @@
 
 HqRpc是一个基于 Java + Etcd + Vert.x 的轻量级 RPC (远程服务调用)框架，简化了远程服务的调用过程。
 
-
 ## 🌟核心特性
 
 - **⚙️配置加载：** 支持多种配置文件格式，使用 SPI 机制根据配置文件参数动态加载框架接口实现。
@@ -27,20 +26,6 @@ HqRpc是一个基于 Java + Etcd + Vert.x 的轻量级 RPC (远程服务调用)�
 
 ```
 hqing-rpc/
-│
-├── example-common / # 示例公共模块
-│
-├── example-consumer/ # 示例消费者模块
-│
-├── example-provider/ # 示例服务提供者模块
-│
-├── example-provider-1/ # 示例服务提供者模块1
-│
-├── example-provider-2/ # 示例服务提供者模块2
-│
-├── example-springboot-consumer/ # 服务消费者注解开发版本
-│
-├── example-springboot-provider/ # 服务提供者注解开发版本
 │
 ├── hqing-rpc-core/ # RPC框架核心实现
 │
@@ -229,8 +214,6 @@ rpc:
     tolerantStrategy: failFast
 ```
 
-
-
 **消费者最简配置**
 
 ```yaml
@@ -239,8 +222,6 @@ rpc:
     # 注册中心地址
     address: http://localhost:2379
 ```
-
-
 
 **服务者最简配置**
 
@@ -256,24 +237,22 @@ rpc:
     address: http://localhost:2379
 ```
 
-
-
 ## ✨技术选型
 
 - ⭐️ Vert.x 框架
 - ⭐️ Etcd 云原生存储中间件（jetcd 客户端）
 - ⭐️ SPI 机制
 - ⭐️ 多种序列化器
-  - JDK 序列化
-  - JSON 序列化
-  - Kryo 序列化
-  - Hessian 序列化
+    - JDK 序列化
+    - JSON 序列化
+    - Kryo 序列化
+    - Hessian 序列化
 
 - ⭐️ 多种设计模式
-  - 双检锁单例模式
-  - 工厂模式
-  - 代理模式
-  - 装饰者模式
+    - 双检锁单例模式
+    - 工厂模式
+    - 代理模式
+    - 装饰者模式
 - ⭐️ Spring Boot Starter 开发
 - 反射和注解驱动
 - Guava Retrying 重试库
