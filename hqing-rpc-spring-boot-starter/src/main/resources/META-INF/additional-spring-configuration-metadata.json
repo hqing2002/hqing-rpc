@@ -1,0 +1,160 @@
+{
+  "groups": [
+    {
+      "name": "rpc",
+      "type": "com.hqing.hqrpc.config.RpcConfig",
+      "description": "RPC 框架全局配置"
+    },
+    {
+      "name": "rpc.protocol",
+      "type": "com.hqing.hqrpc.config.ProtocolConfig",
+      "description": "RPC 协议配置"
+    },
+    {
+      "name": "rpc.registry",
+      "type": "com.hqing.hqrpc.config.RegistryConfig",
+      "description": "注册中心配置"
+    },
+    {
+      "name": "rpc.consumer",
+      "type": "com.hqing.hqrpc.config.ConsumerConfig",
+      "description": "服务消费者配置"
+    }
+  ],
+  "properties": [
+    {
+      "name": "rpc.protocol.name",
+      "type": "java.lang.String",
+      "description": "协议类型",
+      "sourceType": "com.hqing.hqrpc.config.ProtocolConfig",
+      "defaultValue": "tcp"
+    },
+    {
+      "name": "rpc.protocol.port",
+      "type": "java.lang.Integer",
+      "description": "服务暴露端口",
+      "sourceType": "com.hqing.hqrpc.config.ProtocolConfig",
+      "defaultValue": 28800
+    },
+    {
+      "name": "rpc.protocol.serializer",
+      "type": "java.lang.String",
+      "description": "序列化器",
+      "sourceType": "com.hqing.hqrpc.config.ProtocolConfig",
+      "defaultValue": "jdk"
+    },
+    {
+      "name": "rpc.registry.name",
+      "type": "java.lang.String",
+      "description": "注册中心名称",
+      "sourceType": "com.hqing.hqrpc.config.RegistryConfig",
+      "defaultValue": "etcd"
+    },
+    {
+      "name": "rpc.registry.address",
+      "type": "java.lang.String",
+      "description": "注册中心地址",
+      "sourceType": "com.hqing.hqrpc.config.RegistryConfig",
+      "defaultValue": "http://localhost:2379"
+    },
+    {
+      "name": "rpc.registry.username",
+      "type": "java.lang.String",
+      "description": "注册中心用户名",
+      "sourceType": "com.hqing.hqrpc.config.RegistryConfig"
+    },
+    {
+      "name": "rpc.registry.password",
+      "type": "java.lang.String",
+      "description": "注册中心密码",
+      "sourceType": "com.hqing.hqrpc.config.RegistryConfig"
+    },
+    {
+      "name": "rpc.registry.timeout",
+      "type": "java.lang.Integer",
+      "description": "注册中心调用超时时间",
+      "sourceType": "com.hqing.hqrpc.config.RegistryConfig",
+      "defaultValue": 5000
+    },
+    {
+      "name": "rpc.consumer.mock",
+      "type": "java.lang.Boolean",
+      "description": "开启 mock 调用",
+      "sourceType": "com.hqing.hqrpc.config.ConsumerConfig",
+      "defaultValue": false
+    },
+    {
+      "name": "rpc.consumer.timeout",
+      "type": "java.lang.Integer",
+      "description": "远程调用超时时间",
+      "sourceType": "com.hqing.hqrpc.config.ConsumerConfig",
+      "defaultValue": 5000
+    },
+    {
+      "name": "rpc.consumer.load-balancer",
+      "type": "java.lang.String",
+      "description": "负载均衡策略",
+      "sourceType": "com.hqing.hqrpc.config.ConsumerConfig",
+      "defaultValue": "roundRobin"
+    },
+    {
+      "name": "rpc.consumer.retry-strategy",
+      "type": "java.lang.String",
+      "description": "重试策略",
+      "sourceType": "com.hqing.hqrpc.config.ConsumerConfig",
+      "defaultValue": "noRetry"
+    },
+    {
+      "name": "rpc.consumer.tolerant-strategy",
+      "type": "java.lang.String",
+      "description": "容错策略",
+      "sourceType": "com.hqing.hqrpc.config.ConsumerConfig",
+      "defaultValue": "failFast"
+    }
+  ],
+  "hints": [
+    {
+      "name": "rpc.protocol.name",
+      "values": [
+        { "value": "tcp", "description": "TCP 协议" },
+        { "value": "http", "description": "HTTP 协议" }
+      ]
+    },
+    {
+      "name": "rpc.protocol.serializer",
+      "values": [
+        { "value": "jdk", "description": "JDK 序列化" },
+        { "value": "json", "description": "JSON 序列化" },
+        { "value": "kryo", "description": "Kryo 序列化" },
+        { "value": "hessian", "description": "Hessian 序列化" },
+        { "value": "customize", "description": "自定义序列化器" }
+      ]
+    },
+    {
+      "name": "rpc.consumer.load-balancer",
+      "values": [
+        { "value": "roundRobin", "description": "轮询策略" },
+        { "value": "random", "description": "随机策略" },
+        { "value": "consistentHash", "description": "一致性哈希策略" }
+      ]
+    },
+    {
+      "name": "rpc.consumer.retry-strategy",
+      "values": [
+        { "value": "noRetry", "description": "不重试" },
+        { "value": "fixedInterval", "description": "固定间隔重试" },
+        { "value": "exponentialInterval", "description": "指数间隔重试" },
+        { "value": "incrementingInterval", "description": "递增间隔重试" },
+        { "value": "randomInterval", "description": "随机间隔重试" }
+      ]
+    },
+    {
+      "name": "rpc.consumer.tolerant-strategy",
+      "values": [
+        { "value": "failFast", "description": "快速失败" },
+        { "value": "failSafe", "description": "安全失败" },
+        { "value": "failOver", "description": "故障转移" }
+      ]
+    }
+  ]
+}
