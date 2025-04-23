@@ -1,0 +1,6 @@
+server:
+  port: 8080
+
+rpc:
+  protocol:
+    port: 28080

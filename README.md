@@ -25,11 +25,35 @@ HqRpc是一个基于 Java + Etcd + Vert.x 的轻量级 RPC (远程服务调用)�
 ## 📁项目结构
 
 ```
-hqing-rpc/
+hqing-rpc-core/
 │
-├── hqing-rpc-core/ # RPC框架核心实现
+├── bootstarp/ # 启动工具
 │
-└── hqing-rpc-spring-boot-starter/ # SpringBootStarter 项目启动器
+├── config/ # 框架配置
+│
+├── constant/ # 框架常量
+│
+├── fault/ # 容错和重试策略
+│
+├── loadbalancer/ # 负载均衡器
+│
+├── model/ # 框架模型
+│
+├── protocol/ # 自定义协议
+│
+├── proxy/ # 消费端代理
+│
+├── registry/ # 注册中心和本地服务注册器
+│
+├── serializer/ # 序列化
+│
+├── server/ # Vert.x服务
+│
+├── spi/ # SPI 加载器
+│
+├── utils/ # 框架工具类
+│
+└── RpcApplication/ # 框架q
 ```
 
 ## 🌱快速开始
@@ -57,16 +81,18 @@ public interface UserService {
 在服务消费者和服务提供者模块中都引入公共模块和 RpcStarter
 
 ```xml
-<dependency>
-    <groupId>com.hqing</groupId>
-    <artifactId>hqing-rpc-spring-boot-starter</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-</dependency>
-<dependency>
-    <groupId>com.hqing</groupId>
-    <artifactId>example-common</artifactId>
-    <version>1.0-SNAPSHOT</version>
-</dependency>
+<dependencies>
+    <dependency>
+        <groupId>com.hqing</groupId>
+        <artifactId>hqing-rpc-spring-boot-starter</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+        <groupId>com.hqing</groupId>
+        <artifactId>example-common</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </dependency>
+</dependencies>
 ```
 
 ### 3、配置服务提供者
