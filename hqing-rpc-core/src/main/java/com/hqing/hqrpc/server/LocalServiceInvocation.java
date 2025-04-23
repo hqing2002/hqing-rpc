@@ -30,10 +30,11 @@ public class LocalServiceInvocation {
         String methodName = rpcRequest.getMethodName();
         Class<?>[] parameterTypes = rpcRequest.getParameterTypes();
         Object[] args = rpcRequest.getArgs();
+        String serviceVersion = rpcRequest.getServiceVersion();
 
         try {
             //从服务注册器中获取服务本地注册信息(实现类的class, 实例对象)
-            ServiceLocalRegisterInfo<?> serviceLocalRegisterInfo = LocalRegistry.get(serviceName);
+            ServiceLocalRegisterInfo<?> serviceLocalRegisterInfo = LocalRegistry.get(serviceName + serviceVersion);
             Class<?> serviceImplClass = serviceLocalRegisterInfo.getServiceImplClass();
             Object instance = serviceLocalRegisterInfo.getInstance();
             //根据方法名,方法参数类型获取实例的目标方法

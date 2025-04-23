@@ -13,11 +13,19 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class TestController {
-    @RpcReference
+    @RpcReference(serviceVersion = "1.0")
     TicketService ticketService;
+
+    @RpcReference(serviceVersion = "2.0")
+    TicketService ticketService2;
 
     @GetMapping("/getPrice/{id}")
     public int getPrice(@PathVariable("id") Long id) {
         return ticketService.getTicketPrice(id);
+    }
+
+    @GetMapping("/getPrice2/{id}")
+    public int getPrice2(@PathVariable("id") Long id) {
+        return ticketService2.getTicketPrice(id);
     }
 }

@@ -77,7 +77,7 @@ public class ProviderBootstrap {
             String serviceVersion = serviceRegisterInfo.getServiceVersion();
 
             //本地注册
-            LocalRegistry.register(serviceName, serviceLocalRegisterInfo);
+            LocalRegistry.register(serviceName + serviceVersion, serviceLocalRegisterInfo);
 
             //构造服务注册元数据
             ServiceMetaInfo serviceMetaInfo = new ServiceMetaInfo();
