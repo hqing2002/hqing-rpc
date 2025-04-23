@@ -5,6 +5,7 @@ import cn.hutool.core.net.NetUtil;
 import com.hqing.hqrpc.RpcApplication;
 import com.hqing.hqrpc.config.RegistryConfig;
 import com.hqing.hqrpc.config.RpcConfig;
+import com.hqing.hqrpc.model.ServiceLocalRegisterInfo;
 import com.hqing.hqrpc.model.ServiceMetaInfo;
 import com.hqing.hqrpc.model.ServiceRegisterInfo;
 import com.hqing.hqrpc.registry.LocalRegistry;
@@ -72,11 +73,11 @@ public class ProviderBootstrap {
         for (ServiceRegisterInfo<?> serviceRegisterInfo : serviceRegisterInfoList) {
             //获取注册服务信息
             String serviceName = serviceRegisterInfo.getServiceName();
-            Class<?> implClass = serviceRegisterInfo.getImplClass();
+            ServiceLocalRegisterInfo<?> serviceLocalRegisterInfo = serviceRegisterInfo.getServiceLocalRegisterInfo();
             String serviceVersion = serviceRegisterInfo.getServiceVersion();
 
             //本地注册
-            LocalRegistry.register(serviceName, implClass);
+            LocalRegistry.register(serviceName, serviceLocalRegisterInfo);
 
             //构造服务注册元数据
             ServiceMetaInfo serviceMetaInfo = new ServiceMetaInfo();

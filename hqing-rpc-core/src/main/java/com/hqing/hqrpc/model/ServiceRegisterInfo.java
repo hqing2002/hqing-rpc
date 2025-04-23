@@ -24,12 +24,12 @@ public class ServiceRegisterInfo<T> {
     private String serviceVersion = "1.0";
 
     /**
-     * 实现类
+     * 本地服务注册信息
      */
-    private Class<? extends T> implClass;
+    private ServiceLocalRegisterInfo<T> serviceLocalRegisterInfo;
 
-    public ServiceRegisterInfo(String serviceName, Class<? extends T> implClass) {
+    public ServiceRegisterInfo(String serviceName, ServiceLocalRegisterInfo<T> serviceLocalRegisterInfo) {
         this.serviceName = serviceName;
-        this.implClass = implClass;
+        this.serviceLocalRegisterInfo = serviceLocalRegisterInfo;
     }
 }

@@ -3,9 +3,9 @@ package com.hqing.hqrpc.server.http;
 import com.hqing.hqrpc.RpcApplication;
 import com.hqing.hqrpc.model.RpcRequest;
 import com.hqing.hqrpc.model.RpcResponse;
-import com.hqing.hqrpc.registry.LocalRegistry;
 import com.hqing.hqrpc.serializer.Serializer;
 import com.hqing.hqrpc.serializer.SerializerFactory;
+import com.hqing.hqrpc.server.LocalServiceInvocation;
 import io.vertx.core.Handler;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.core.http.HttpServerRequest;
@@ -13,7 +13,6 @@ import io.vertx.core.http.HttpServerResponse;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
-import java.lang.reflect.Method;
 
 /**
  * HTTP请求处理
@@ -46,48 +45,10 @@ public class HttpServerHandler implements Handler<HttpServerRequest> {
                 log.error("反序列化请求参数异常: ", e);
             }
             //处理RPC请求
-            RpcResponse rpcResponse = processRpcRequest(rpcRequest);
+            RpcResponse rpcResponse = LocalServiceInvocation.processRpcRequest(rpcRequest);
             //返回响应信息
             doResponse(request, rpcResponse);
         });
-    }
-
-    /**
-     * 处理RPC请求核心逻辑
-     */
-    private RpcResponse processRpcRequest(RpcRequest rpcRequest) {
-        //构造Rpc响应
-        RpcResponse rpcResponse = new RpcResponse();
-
-        //请求参数为null, 直接返回
-        if (rpcRequest == null) {
-            rpcResponse.setMessage("RPC Request Is Null");
-            return rpcResponse;
-        }
-        //读取rpc请求参数
-        String serviceName = rpcRequest.getServiceName();
-        String methodName = rpcRequest.getMethodName();
-        Class<?>[] parameterTypes = rpcRequest.getParameterTypes();
-        Object[] args = rpcRequest.getArgs();
-
-        try {
-            //从服务注册器中获取服务实例class, 通过反射获取实例Class
-            Class<?> serviceImplClass = LocalRegistry.get(serviceName);
-            //调用实现类的无参构造器创建出实例对象
-            Object serviceImplObj = serviceImplClass.getDeclaredConstructor().newInstance();
-            //根据方法名,方法参数类型获取实例的目标方法
-            Method serviceImplMethod = serviceImplClass.getMethod(methodName, parameterTypes);
-            //调用目标方法
-            Object result = serviceImplMethod.invoke(serviceImplObj, args);
-            //封装返回结果
-            rpcResponse.setData(result);
-            rpcResponse.setDataType(serviceImplMethod.getReturnType());
-            rpcResponse.setMessage("ok");
-        } catch (Exception e) {
-            rpcResponse.setMessage(e.getMessage());
-            rpcResponse.setException(e);
-        }
-        return rpcResponse;
     }
 
     /**

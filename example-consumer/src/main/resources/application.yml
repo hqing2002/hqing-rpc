@@ -1,6 +1,3 @@
 rpc:
-  registry:
-    # 注册中心地址
-    address: http://localhost:2379
-    # 注册中心调用超时时间
-    timeout: 5000
+  protocol:
+    port: 20666

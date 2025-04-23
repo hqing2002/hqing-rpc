@@ -5,6 +5,7 @@ import com.hqing.hqingrpcspringbootstarter.annotation.RpcService;
 import com.hqing.hqingrpcspringbootstarter.model.PackageHolder;
 import com.hqing.hqingrpcspringbootstarter.utils.AnnotationScannerUtil;
 import com.hqing.hqrpc.bootstrap.ProviderBootstrap;
+import com.hqing.hqrpc.model.ServiceLocalRegisterInfo;
 import com.hqing.hqrpc.model.ServiceRegisterInfo;
 import com.hqing.hqrpc.proxy.ServiceProxyFactory;
 import org.springframework.context.ApplicationContext;
@@ -41,17 +42,22 @@ public class RpcServiceBootstrap implements ApplicationListener<ContextRefreshed
             Map<Class<?>, AnnotationScannerUtil.AnnotatedInfo> classWithAnnotationMap = AnnotationScannerUtil
                     .scanPackageWithAnnotation(packageHolder.getBasePackages(), RpcService.class, RpcReference.class);
             Set<Class<?>> classes = classWithAnnotationMap.keySet();
-            //遍历所有带注解的类
+            //遍历所有带注解的类, 先进行服务代理注入
             for (Class<?> beanClass : classes) {
                 AnnotationScannerUtil.AnnotatedInfo annotatedInfo = classWithAnnotationMap.get(beanClass);
-                //如果包含类注解, 执行服务注册
-                if (annotatedInfo.isHasClassAnnotation()) {
-                    registerService(beanClass);
-                }
                 //如果字段注解不为空, 执行代理对象注入
                 List<Field> fieldsWithAnnotation = annotatedInfo.getFieldsWithAnnotation();
                 if (!fieldsWithAnnotation.isEmpty()) {
                     proxyInjector(applicationContext.getBean(beanClass), fieldsWithAnnotation);
+                }
+            }
+            //再次遍历带注解的类, 再进行服务注册
+            for (Class<?> beanClass : classes) {
+                //获取注解
+                AnnotationScannerUtil.AnnotatedInfo annotatedInfo = classWithAnnotationMap.get(beanClass);
+                //如果包含类注解, 执行服务注册
+                if (annotatedInfo.isHasClassAnnotation()) {
+                    registerService(beanClass, applicationContext.getBean(beanClass));
                 }
             }
         }
@@ -60,7 +66,7 @@ public class RpcServiceBootstrap implements ApplicationListener<ContextRefreshed
     /**
      * 对提供了@RpcService注解的类进行服务注册
      */
-    private void registerService(Class<?> beanClass) {
+    private void registerService(Class<?> beanClass, Object instance) {
         //获取该类的@RpcService注解
         RpcService rpcService = beanClass.getAnnotation(RpcService.class);
         //获取注解参数
@@ -76,7 +82,7 @@ public class RpcServiceBootstrap implements ApplicationListener<ContextRefreshed
         //构造注册服务信息
         List<ServiceRegisterInfo<?>> registerInfoList = new ArrayList<>();
         ServiceRegisterInfo<?> serviceRegisterInfo = new ServiceRegisterInfo<>
-                (serviceName, serviceVersion, beanClass);
+                (serviceName, serviceVersion, new ServiceLocalRegisterInfo<>(beanClass, instance));
         //将信息添加到列表中
         registerInfoList.add(serviceRegisterInfo);
         //调用ProviderBootstrap进行服务注册
