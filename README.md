@@ -1,6 +1,6 @@
 # HqRPC - 轻量级RPC框架
 
-![Java Version](https://img.shields.io/badge/Java-11%252B-blue.svg) ![Vert.x Version](https://img.shields.io/badge/Vert.x-4.5.13-green.svg) ![License](https://img.shields.io/badge/License-Apache%25202.0-red.svg) ![Spring Boot](https://img.shields.io/badge/Spring_Boot-2.6.13-green?logo=spring-boot&logoColor=white&color=6DB33F) ![etcd](https://img.shields.io/badge/etcd-3.6.0-blue?logo=etcd&logoColor=white&color=419EDA) ![Hutool](https://img.shields.io/badge/Hutool-5.8.24-orange?logo=java&logoColor=white&color=FF6F00) ![snakeYAML](https://img.shields.io/badge/snakeYAML-2.2-purple?logo=snakeyaml&logoColor=white&color=6C3483) ![Guava](https://img.shields.io/badge/Guava-2.0.0-yellow?logo=google&logoColor=white&color=F4B400)
+![Java Version](https://img.shields.io/badge/Java-11-blue.svg) ![Vert.x Version](https://img.shields.io/badge/Vert.x-4.5.13-green.svg) ![License](https://img.shields.io/badge/License-Apache2.0-red.svg) ![Spring Boot](https://img.shields.io/badge/Spring_Boot-2.6.13-green?logo=spring-boot&logoColor=white&color=6DB33F) ![etcd](https://img.shields.io/badge/etcd-3.6.0-blue?logo=etcd&logoColor=white&color=419EDA) ![Hutool](https://img.shields.io/badge/Hutool-5.8.24-orange?logo=java&logoColor=white&color=FF6F00) ![snakeYAML](https://img.shields.io/badge/snakeYAML-2.2-purple?logo=snakeyaml&logoColor=white&color=6C3483) ![Guava](https://img.shields.io/badge/Guava-2.0.0-yellow?logo=google&logoColor=white&color=F4B400)
 
 ## 🚀项目介绍
 
